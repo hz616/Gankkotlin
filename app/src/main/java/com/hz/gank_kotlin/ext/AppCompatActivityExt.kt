@@ -4,14 +4,19 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.hz.gank_kotlin.R
 
 /**
  * 沉浸式状态栏
  */
-fun AppCompatActivity.transpartStatusBar() {
+fun AppCompatActivity.transparentStatusBar() {
 
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -23,9 +28,31 @@ fun AppCompatActivity.transpartStatusBar() {
     }
 }
 
+/**
+ * 设置toolbar
+ */
 fun AppCompatActivity.setupToolBar(toolBar: Toolbar, action: ActionBar.() -> Unit) {
     setSupportActionBar(toolBar)
-    supportActionBar?.run{
+    supportActionBar?.run {
         action
     }
+}
+
+fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frameId: Int, tag: String) {
+    supportFragmentManager.transact {
+        replace(frameId, fragment, tag)
+    }
+
+}
+
+private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Unit) {
+    beginTransaction().apply {
+        setCustomAnimations(
+            R.anim.abc_grow_fade_in_from_bottom,
+            R.anim.abc_fade_out,
+            R.anim.abc_fade_in,
+            R.anim.abc_shrink_fade_out_from_bottom
+        )
+        action()
+    }.commit()
 }
