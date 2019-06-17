@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.hz.gank_kotlin.data.Gank
 import com.hz.gank_kotlin.ext.getDateString
+import com.hz.gank_kotlin.ui.common.WebActivity
 import kotlinx.android.synthetic.main.recycler_item_gank_data.view.*
 import org.jetbrains.anko.toast
 
@@ -12,7 +13,7 @@ class GankDataHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemV
 
     private val onClickListener =  View.OnClickListener{
         val gank = it.tag as Gank
-        itemView.context.toast(gank.url)
+        WebActivity.start(it.context, gank.url)
     }
 
     fun setUp(gank: Gank){

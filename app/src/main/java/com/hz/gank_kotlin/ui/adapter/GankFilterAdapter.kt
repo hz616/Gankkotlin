@@ -4,6 +4,7 @@ import android.view.View
 import com.hz.gank_kotlin.R
 import com.hz.gank_kotlin.data.Gank
 import com.hz.gank_kotlin.ext.getDateString
+import com.hz.gank_kotlin.ui.common.WebActivity
 import kotlinx.android.synthetic.main.recycler_item_gank_data.view.*
 
 class GankFilterAdapter(gankList: MutableList<Gank>) : BaseAdapter<Gank>(gankList, R.layout.recycler_item_gank_data) {
@@ -17,7 +18,7 @@ class GankFilterAdapter(gankList: MutableList<Gank>) : BaseAdapter<Gank>(gankLis
         itemView.item_wrapper.tag = data
         itemView.item_wrapper.setOnClickListener {
 
-            //todo 跳转到webview
+            WebActivity.start(it.context,data.url)
 
         }
     }
