@@ -54,7 +54,6 @@ class GankFilterFragment : Fragment(), GankFilterContract.View {
     override fun onRefresh(gankList: List<Gank>, isEnd: Boolean) {
         this.gankList.clear()
         this.gankList.addAll(gankList)
-        isDataEnd(isEnd)
         gankFilterAdapter.notifyDataSetChanged()
         refreshCompleted()
     }

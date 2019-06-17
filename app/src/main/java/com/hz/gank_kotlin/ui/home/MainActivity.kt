@@ -19,6 +19,7 @@ import com.hz.gank_kotlin.ui.home.daily.GankDailyFragment
 import com.hz.gank_kotlin.ui.home.daily.GankDailyPresenter
 import com.hz.gank_kotlin.ui.home.filter.GankFilterFragment
 import com.hz.gank_kotlin.ui.home.filter.GankFilterPresenter
+import com.hz.gank_kotlin.ui.home.filter.WelfareFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -88,9 +89,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_extra -> {
                     filterChange(GankFilterType.EXTRA_SOURCES)
                 }
-//                R.id.menu_video -> {
-//                    filterChange(GankFilterType.VIDEO)
-//                }
+                R.id.menu_welfare -> {
+                    welfareFragment(GankFilterType.WELFARE)
+                }
             }
             return@setNavigationItemSelectedListener true
         }
@@ -100,6 +101,20 @@ class MainActivity : AppCompatActivity() {
             .load(R.drawable.seb5)
             .into(nav_view.getHeaderView(0).iv_nav_header)
     }
+
+    private fun welfareFragment(filterType: String) {
+        val welfareFragment = supportFragmentManager.findFragmentByTag(filterType)
+        if (welfareFragment == null) {
+            WelfareFragment.newInstance().also {
+                it.presenter = gankFilterPresenter
+                gankFilterPresenter.gankFilterView = it
+                gankFilterPresenter.currentFiltering = filterType
+                replaceFragmentInActivity(it,R.id.contentFrame,filterType)
+            }
+        }
+
+    }
+
 
     private fun filterChange(filterType: String) {
         val gankFilterFragment = supportFragmentManager.findFragmentByTag(filterType)
