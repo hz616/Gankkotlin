@@ -73,19 +73,18 @@ class WebActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView(webView: WebView) {
         // Settings
-        val webSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        // 启用地理定位
-        webSettings.setGeolocationEnabled(true)
-        webSettings.allowContentAccess = true
-        webSettings.setAppCacheEnabled(true)
-        webSettings.allowFileAccess = true
-        webSettings.allowFileAccessFromFileURLs = true
-        webSettings.databaseEnabled = true
-        webSettings.domStorageEnabled = true
-        webSettings.javaScriptCanOpenWindowsAutomatically = true
-        webSettings.loadsImagesAutomatically = true
-
+        webView.settings.apply {
+            javaScriptEnabled = true
+            setGeolocationEnabled(true)
+            allowContentAccess = true
+            setAppCacheEnabled(true)
+            allowFileAccess = true
+            allowFileAccessFromFileURLs = true
+            databaseEnabled = true
+            domStorageEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
+            loadsImagesAutomatically = true
+        }
         webView.webViewClient = WebClient()
         webView.webChromeClient = ChromeClient()
     }

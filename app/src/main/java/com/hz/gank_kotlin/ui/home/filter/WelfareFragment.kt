@@ -33,10 +33,11 @@ class WelfareFragment : Fragment(), GankFilterContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         welfareAdapter = WelfareAdapter(gankList)
-        rv_welfare.layoutManager = GridLayoutManager(context, 2)
-        rv_welfare.setHasFixedSize(true)
-        rv_welfare.adapter = welfareAdapter
-
+        rv_welfare.apply {
+            adapter = welfareAdapter
+            layoutManager = GridLayoutManager(context, 2)
+            setHasFixedSize(true)
+        }
         welfareAdapter.mLoadMoreListener = object : LoadMoreListener {
             override fun loadMore() {
                 presenter.loadMore()
@@ -75,9 +76,11 @@ class WelfareFragment : Fragment(), GankFilterContract.View {
     }
 
     override fun loadMoreGankError() {
-        welfareAdapter.loadMoreCompleted()
-        welfareAdapter.mLoadingStatus = LoadingHolder.STATUS_FAILED
-        welfareAdapter.notifyDataSetChanged()
+        welfareAdapter.apply {
+            loadMoreCompleted()
+            mLoadingStatus = LoadingHolder.STATUS_FAILED
+            notifyDataSetChanged()
+        }
     }
 
 

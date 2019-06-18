@@ -34,11 +34,13 @@ class GankDailyFragment : Fragment(), GankDailyContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_gank_daily.layoutManager = LinearLayoutManager(activity)
-        rv_gank_daily.setHasFixedSize(true)
-        rv_gank_daily.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         gankDailyAdapter = GankDailyAdapter(gankItemList)
-        rv_gank_daily.adapter = gankDailyAdapter
+        rv_gank_daily.apply {
+            layoutManager = LinearLayoutManager(activity)
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            adapter = gankDailyAdapter
+        }
         swipe_refresh_layout.setOnRefreshListener {
             refreshData()
         }
@@ -57,13 +59,13 @@ class GankDailyFragment : Fragment(), GankDailyContract.View {
         if (rv_gank_daily == null) {
             return
         }
-        if(active){
+        if (active) {
             rv_gank_daily.post {
                 swipe_refresh_layout.isRefreshing = true
                 refreshData()
             }
-        }else{
-            rv_gank_daily.post{
+        } else {
+            rv_gank_daily.post {
                 swipe_refresh_layout.isRefreshing = false
             }
         }
@@ -78,7 +80,7 @@ class GankDailyFragment : Fragment(), GankDailyContract.View {
 
     override fun showLoadingGankError() {
         setLoadingIndicator(false)
-        Toast.makeText(context,"loading gank error ",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "loading gank error ", Toast.LENGTH_LONG).show()
     }
 
 

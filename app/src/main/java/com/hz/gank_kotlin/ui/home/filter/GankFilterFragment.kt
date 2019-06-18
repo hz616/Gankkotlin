@@ -28,11 +28,14 @@ class GankFilterFragment : Fragment(), GankFilterContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_gank_filter.layoutManager = LinearLayoutManager(activity)
-        rv_gank_filter.setHasFixedSize(true)
-        rv_gank_filter.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         gankFilterAdapter = GankFilterAdapter(gankList)
-        rv_gank_filter.adapter = gankFilterAdapter
+
+        rv_gank_filter.apply {
+            layoutManager = LinearLayoutManager(activity)
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+            adapter = gankFilterAdapter
+        }
 
         gankFilterAdapter.mLoadMoreListener = object : LoadMoreListener{
             override fun loadMore() {
