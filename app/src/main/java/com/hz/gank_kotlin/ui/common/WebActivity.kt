@@ -20,10 +20,10 @@ class WebActivity : AppCompatActivity(), View.OnClickListener {
         private const val EXTRA_URL = "url"
 
         @JvmStatic
-        fun start(context: Context, url: String) {
+        fun start(context: Context?, url: String) {
             val intent = Intent(context, WebActivity::class.java)
             intent.putExtra(EXTRA_URL, url)
-            context.startActivity(intent)
+            context?.startActivity(intent)
         }
     }
 

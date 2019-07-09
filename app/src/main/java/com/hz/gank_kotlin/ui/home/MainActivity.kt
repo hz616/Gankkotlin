@@ -2,9 +2,6 @@ package com.hz.gank_kotlin.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -12,22 +9,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hz.gank_kotlin.Injection
 import com.hz.gank_kotlin.R
+import com.hz.gank_kotlin.ext.obtainViewModel
 import com.hz.gank_kotlin.ext.replaceFragmentInActivity
 import com.hz.gank_kotlin.ext.setupToolBar
-import com.hz.gank_kotlin.ext.transparentStatusBar
 import com.hz.gank_kotlin.ui.home.daily.GankDailyFragment
-import com.hz.gank_kotlin.ui.home.daily.GankDailyPresenter
+import com.hz.gank_kotlin.ui.home.daily.GankDailyViewModel
 import com.hz.gank_kotlin.ui.home.filter.GankFilterFragment
 import com.hz.gank_kotlin.ui.home.filter.GankFilterPresenter
 import com.hz.gank_kotlin.ui.home.filter.WelfareFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
 import kotlinx.android.synthetic.main.nav_header.view.*
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var gankDailyPresenter: GankDailyPresenter
+
     private lateinit var gankFilterPresenter: GankFilterPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,13 +34,10 @@ class MainActivity : AppCompatActivity() {
         }
         setupDrawerLayout()
 
-        val gankDailyFragment = GankDailyFragment.newInstance().also {
+        GankDailyFragment.newInstance().also {
             replaceFragmentInActivity(it, R.id.contentFrame, GankDailyFragment.TAG)
         }
 
-        gankDailyPresenter = GankDailyPresenter(
-            Injection.provideGankRepository(applicationContext), gankDailyFragment
-        )
 
         gankFilterPresenter = GankFilterPresenter(Injection.provideGankFilterRepository(), null)
 
@@ -68,8 +61,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_today -> {
                     if (null == supportFragmentManager.findFragmentByTag(GankDailyFragment.TAG)) {
                         GankDailyFragment.newInstance().also {
-                            gankDailyPresenter.gankDailyView = it
-                            it.presenter = gankDailyPresenter
                             replaceFragmentInActivity(it, R.id.contentFrame, GankDailyFragment.TAG)
                         }
                     }
@@ -109,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 it.presenter = gankFilterPresenter
                 gankFilterPresenter.gankFilterView = it
                 gankFilterPresenter.currentFiltering = filterType
-                replaceFragmentInActivity(it,R.id.contentFrame,filterType)
+                replaceFragmentInActivity(it, R.id.contentFrame, filterType)
             }
         }
 
@@ -135,6 +126,8 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    fun obtainGankDailyViewModel(): GankDailyViewModel = obtainViewModel(GankDailyViewModel::class.java)
 
 
 }

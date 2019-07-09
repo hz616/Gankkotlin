@@ -1,6 +1,7 @@
 package com.hz.gank_kotlin.ui.adapter.holder
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.hz.gank_kotlin.data.Gank
 import com.hz.gank_kotlin.ext.getDateString
@@ -10,6 +11,11 @@ import org.jetbrains.anko.toast
 
 
 class GankDataHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    lateinit var viewBinding : ViewDataBinding
+
+    constructor(viewBinding : ViewDataBinding) : this(viewBinding.root){
+        this.viewBinding = viewBinding
+    }
 
     private val onClickListener =  View.OnClickListener{
         val gank = it.tag as Gank

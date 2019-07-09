@@ -19,8 +19,6 @@ class GankDailyLocalSource private constructor(
         }
     }
 
-    override fun refreshGank() {
-    }
 
     override fun deleteGankDaily() {
         appExecutors.diskIO.execute {

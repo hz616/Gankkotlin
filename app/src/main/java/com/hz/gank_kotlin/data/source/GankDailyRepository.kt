@@ -9,35 +9,21 @@ class GankDailyRepository private constructor(
     private val gankDailyLocalSource: GankDailyLocalSource
 ) : GankDailySource {
 
-    private var cacheDailyData: GankDailyData? = null
-    private var cacheIsDirty = false
+    private var firstLoad = true
 
     override fun gankDaily(callback: GankDailySource.LoadGankCallback) {
 
-        if (cacheDailyData == null) {
-            getLocalGankDaily(callback)
-        } else {
-            if (!cacheIsDirty) {
-                cacheDailyData?.let {
-                    callback.onGankLoaded(it)
-                    return
-                }
-            }
-        }
-
-        if (cacheIsDirty) {
+        if (firstLoad) {
             getRemoteGankDaily(callback)
-        } else {
-            getLocalGankDaily(callback)
+            firstLoad = false
         }
-
+        getLocalGankDaily(callback)
     }
 
 
     private fun getLocalGankDaily(callback: GankDailySource.LoadGankCallback) {
         gankDailyLocalSource.gankDaily(object : GankDailySource.LoadGankCallback {
             override fun onGankLoaded(gankDailyData: GankDailyData) {
-                refreshCache(gankDailyData)
                 callback.onGankLoaded(gankDailyData)
             }
 
@@ -51,7 +37,6 @@ class GankDailyRepository private constructor(
     private fun getRemoteGankDaily(callback: GankDailySource.LoadGankCallback) {
         gankDailyRemoteSource.gankDaily(object : GankDailySource.LoadGankCallback {
             override fun onGankLoaded(gankDailyData: GankDailyData) {
-                refreshCache(gankDailyData)
                 saveGankDaily(gankDailyData)
                 callback.onGankLoaded(gankDailyData)
             }
@@ -63,14 +48,6 @@ class GankDailyRepository private constructor(
         })
     }
 
-    private fun refreshCache(gankDailyData: GankDailyData) {
-        cacheDailyData = gankDailyData
-        cacheIsDirty = false
-    }
-
-    override fun refreshGank() {
-        cacheIsDirty = true
-    }
 
     override fun deleteGankDaily() {
         gankDailyLocalSource.deleteGankDaily()
@@ -84,8 +61,11 @@ class GankDailyRepository private constructor(
         private var INSTANCE: GankDailyRepository? = null
 
         @JvmStatic
-        fun getInstance(gankDailyLocalSource: GankDailyLocalSource,gankDailyRemoteSource: GankDailyRemoteSource):GankDailyRepository{
-            return INSTANCE?:GankDailyRepository(gankDailyRemoteSource,gankDailyLocalSource).apply {
+        fun getInstance(
+            gankDailyLocalSource: GankDailyLocalSource,
+            gankDailyRemoteSource: GankDailyRemoteSource
+        ): GankDailyRepository {
+            return INSTANCE ?: GankDailyRepository(gankDailyRemoteSource, gankDailyLocalSource).apply {
                 INSTANCE = this
             }
         }

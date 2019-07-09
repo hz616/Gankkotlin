@@ -31,9 +31,6 @@ class GankDailyRemoteSource private constructor() : GankDailySource {
 
     }
 
-    override fun refreshGank() {
-    }
-
     override fun deleteGankDaily() {
     }
 
