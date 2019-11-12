@@ -22,7 +22,11 @@ class GankFilterFragment : Fragment(), GankFilterContract.View {
     private lateinit var gankFilterAdapter: GankFilterAdapter
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_gank_filter, container, false)
     }
 
@@ -37,7 +41,7 @@ class GankFilterFragment : Fragment(), GankFilterContract.View {
             adapter = gankFilterAdapter
         }
 
-        gankFilterAdapter.mLoadMoreListener = object : LoadMoreListener{
+        gankFilterAdapter.mLoadMoreListener = object : LoadMoreListener {
             override fun loadMore() {
                 presenter.loadMore()
             }
@@ -47,10 +51,8 @@ class GankFilterFragment : Fragment(), GankFilterContract.View {
             refreshData()
         }
 
-        rv_gank_filter.post {
-            swipe_refresh_layout.isRefreshing = true
-            refreshData()
-        }
+        swipe_refresh_layout.isRefreshing = true
+        refreshData()
     }
 
 

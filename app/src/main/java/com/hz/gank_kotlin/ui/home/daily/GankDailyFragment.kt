@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hz.gank_kotlin.R
 import com.hz.gank_kotlin.data.Gank
-import com.hz.gank_kotlin.data.GankDailyData
 import com.hz.gank_kotlin.data.ui.GankItem
 import com.hz.gank_kotlin.databinding.FragmentGankBinding
 import com.hz.gank_kotlin.ui.adapter.GankDailyAdapter
 import com.hz.gank_kotlin.ui.common.WebActivity
 import com.hz.gank_kotlin.ui.home.MainActivity
-import kotlinx.android.synthetic.main.fragment_gank.*
 import kotlinx.android.synthetic.main.recycler_item_gank_data.view.*
 
 class GankDailyFragment : Fragment() {
