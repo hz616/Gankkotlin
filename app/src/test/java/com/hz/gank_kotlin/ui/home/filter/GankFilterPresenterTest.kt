@@ -71,7 +71,7 @@ class GankFilterPresenterTest {
         Mockito.`when`(
             gankFilterRepository.loadMoreGankList(
                 ArgumentMatchers.anyString(),
-                capture(gankFilterRefreshCallback)
+                capture(gankFilterLoadMoreCallback)
             )
         ).thenAnswer {
             val loadGankFilterCallback: GankFilterSource.LoadGankFilterCallback = it.getArgument(1)
@@ -86,7 +86,7 @@ class GankFilterPresenterTest {
         Mockito.`when`(
             gankFilterRepository.loadMoreGankList(
                 ArgumentMatchers.anyString(),
-                capture(gankFilterRefreshCallback)
+                capture(gankFilterLoadMoreCallback)
             )
         ).thenAnswer {
             val loadGankFilterCallback: GankFilterSource.LoadGankFilterCallback = it.getArgument(1)

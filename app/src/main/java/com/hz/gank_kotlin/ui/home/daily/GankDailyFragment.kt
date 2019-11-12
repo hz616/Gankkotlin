@@ -26,7 +26,7 @@ class GankDailyFragment : Fragment() {
 
     private lateinit var gankDailyAdapter: GankDailyAdapter
 
-    private lateinit var viewBinding: FragmentGankBinding;
+    private lateinit var viewBinding: FragmentGankBinding
 
 
     override fun onCreateView(
