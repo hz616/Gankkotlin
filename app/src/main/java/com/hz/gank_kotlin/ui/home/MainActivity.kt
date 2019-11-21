@@ -9,11 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hz.gank_kotlin.Injection
 import com.hz.gank_kotlin.R
-import com.hz.gank_kotlin.ext.obtainViewModel
 import com.hz.gank_kotlin.ext.replaceFragmentInActivity
 import com.hz.gank_kotlin.ext.setupToolBar
 import com.hz.gank_kotlin.ui.home.daily.GankDailyFragment
-import com.hz.gank_kotlin.ui.home.daily.GankDailyViewModel
 import com.hz.gank_kotlin.ui.home.filter.GankFilterFragment
 import com.hz.gank_kotlin.ui.home.filter.GankFilterPresenter
 import com.hz.gank_kotlin.ui.home.filter.WelfareFragment
@@ -126,8 +124,5 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
-    fun obtainGankDailyViewModel(): GankDailyViewModel = obtainViewModel(GankDailyViewModel::class.java)
-
 
 }

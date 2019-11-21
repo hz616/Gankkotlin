@@ -29,6 +29,15 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        targetCompatibility = 1.8
+        sourceCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
 
 }
 
@@ -45,6 +54,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-rc02"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 
     // Anko
     implementation "org.jetbrains.anko:anko-common:$anko_version"

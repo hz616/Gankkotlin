@@ -12,16 +12,13 @@ class GankDailyViewModel(private val gankDailyRepository: GankDailyRepository) :
 
 
     private val _refreshing = MutableLiveData<Boolean>()
-    val refreshing: LiveData<Boolean>
-        get() = _refreshing
+    val refreshing: LiveData<Boolean> = _refreshing
 
     private val _gankItemList = MutableLiveData<MutableList<GankItem>>()
-    val gankItemList: LiveData<MutableList<GankItem>>
-        get() = _gankItemList
+    val gankItemList: LiveData<MutableList<GankItem>> = _gankItemList
 
     private val _netWorkError = MutableLiveData<Boolean>()
-    val netWorkError: LiveData<Boolean>
-        get() = _netWorkError
+    val netWorkError: LiveData<Boolean> = _netWorkError
 
     fun start() {
         _refreshing.value = true

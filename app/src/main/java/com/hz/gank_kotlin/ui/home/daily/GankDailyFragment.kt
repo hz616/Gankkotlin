@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +15,15 @@ import com.hz.gank_kotlin.R
 import com.hz.gank_kotlin.data.Gank
 import com.hz.gank_kotlin.data.ui.GankItem
 import com.hz.gank_kotlin.databinding.FragmentGankBinding
+import com.hz.gank_kotlin.ext.getViewModelFactory
 import com.hz.gank_kotlin.ui.adapter.GankDailyAdapter
 import com.hz.gank_kotlin.ui.common.WebActivity
-import com.hz.gank_kotlin.ui.home.MainActivity
 import kotlinx.android.synthetic.main.recycler_item_gank_data.view.*
 
 class GankDailyFragment : Fragment() {
+
+
+    private val viewModel by viewModels<GankDailyViewModel> { getViewModelFactory() }
 
 
     private val gankItemList: MutableList<GankItem> = mutableListOf()
@@ -35,7 +39,7 @@ class GankDailyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_gank, container, false)
-        viewBinding.viewModel = (activity as MainActivity).obtainGankDailyViewModel()
+        viewBinding.viewModel = viewModel
         return viewBinding.root
     }
 

@@ -11,10 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
 import com.hz.gank_kotlin.R
-import com.hz.gank_kotlin.ui.ViewModelFactory
 
 /**
  * 沉浸式状态栏
@@ -41,7 +38,10 @@ fun AppCompatActivity.setupToolBar(toolBar: Toolbar, action: ActionBar.() -> Uni
     }
 }
 
-fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, @IdRes frameId: Int, tag: String) {
+fun AppCompatActivity.replaceFragmentInActivity(
+    fragment: Fragment, @IdRes frameId: Int,
+    tag: String
+) {
     supportFragmentManager.transact {
         replace(frameId, fragment, tag)
     }
@@ -59,7 +59,3 @@ private inline fun FragmentManager.transact(action: FragmentTransaction.() -> Un
         action()
     }.commit()
 }
-
-
-fun <T : ViewModel> AppCompatActivity.obtainViewModel(viewModelClass: Class<T>) =
-    ViewModelProviders.of(this, ViewModelFactory.getInstance(application)).get(viewModelClass)
